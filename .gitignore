@@ -42,6 +42,12 @@ build/Release
 node_modules/
 cdk.out/
 jspm_packages/
+bin/*.d.ts
+bin/*.js
+lib/*.d.ts
+lib/*.js
+src/*.d.ts
+src/*.js
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
