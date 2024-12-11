@@ -13,11 +13,11 @@ const ImageDescription: React.FC = ({ apigateway }) => {
     const [processingStatus, setProcessingStatus] = useState("default")
 
     const exampleList = [
-        "./2.jpg",
-        "./5.jpg",
-        "./8.jpg",
-        "./10.jpg",
-        "./18.jpg",
+        "./TODO.jpg",
+        "./TODO.jpg",
+        "./TODO.jpg",
+        "./1.jpg",
+        "./TODO.jpg",
     ]
     const items: DescriptionsProps["items"] = [
         {

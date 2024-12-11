@@ -1,6 +1,6 @@
-declare function describePicture(image: any): Promise<{
+declare function describePicture(file: any): Promise<{
     statusCode: number;
-    productInfo: any;
+    timesheetInfo: any;
     headers?: undefined;
     body?: undefined;
 } | {
@@ -9,6 +9,6 @@ declare function describePicture(image: any): Promise<{
         "Content-Type": string;
     };
     body: string;
-    productInfo?: undefined;
+    timesheetInfo?: undefined;
 }>;
 export default describePicture;

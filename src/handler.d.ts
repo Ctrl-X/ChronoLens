@@ -1,6 +1,6 @@
 declare const handler: (event: any, context: any) => Promise<{
     statusCode: number;
-    productInfo: any;
+    timesheetInfo: any;
     headers?: undefined;
     body?: undefined;
 } | {
@@ -9,7 +9,7 @@ declare const handler: (event: any, context: any) => Promise<{
         "Content-Type": string;
     };
     body: string;
-    productInfo?: undefined;
+    timesheetInfo?: undefined;
 } | {
     statusCode: number;
     headers: {
