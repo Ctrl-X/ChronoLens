@@ -5,10 +5,10 @@ const bedrockClient = new BedrockRuntimeClient({ region: "us-west-2" })
 const { ApplyGuardrailCommand } = require("@aws-sdk/client-bedrock")
 
 
-async function describePicture(image: any) {
-    // Convert image Buffer to a Base64 string
-    const buffer = Buffer.from(image.content, "binary")
-    const base64Image = buffer.toString("base64")
+async function describePicture(file: any) {
+    // Convert file Buffer to a Base64 string
+    const buffer = Buffer.from(file.content, "binary")
+    const base64file = buffer.toString("base64")
 
     // modelId: "anthropic.claude-3-haiku-20240307-v1:0",
     // modelId: "anthropic.claude-3-sonnet-20240229-v1:0",
@@ -32,12 +32,12 @@ async function describePicture(image: any) {
                             "source": {
                                 "type": "base64",
                                 "media_type": "image/jpeg",
-                                "data": base64Image
+                                "data": base64file
                             }
                         },
                         {
                             "type": "text",
-                            "text": "I am providing you with an image of a timesheet for employee. Based on the visual information available, please analyze the image and generate a JSON object containing the following attributes when available: \"employee_name\", \"employee_id\", \"date_range\", \"pay_period\", \"start_time\", \"end_time\", \"lunch_time\", \"overtime\", \"total_hours\". If you find multiple days and time, provide an array containing all informations about the work time of the employee. Ensure that the JSON object is properly formatted with correct attribute names and values enclosed in double quotes.If you don't find the information leave the attribute empty.Skip preambule and only give a valid JSON in your response. Here is the image:"
+                            "text": "I am providing you with an file of a timesheet for employee. Based on the visual information available, please analyze the image and generate a JSON object containing the following attributes when available: \"employee_name\", \"employee_id\",  \"pay_period\" and an array of \"days\". You will find one or multiple days and time that you need to provide as a array of \"days\" containing : \"date\", \"start_time\", \"end_time\", \"lunch_time\", \"overtime\", \"total_hours\" for each work time of the employee. Ensure that the JSON object is properly formatted with correct attribute names and values enclosed in double quotes.If you don't find the information leave the attribute empty.Skip preambule and only give a valid JSON in your response. Here is the image:"
                         }
                     ]
                 }
@@ -60,10 +60,10 @@ async function describePicture(image: any) {
         // TODO : INVOKE Amazon Bedrock Guardrails to verify the output response_body
 
         // Return the product information
-        const productInfo = JSON.parse(response_body.content[0].text)
+        const timesheetInfo = JSON.parse(response_body.content[0].text)
         return {
             statusCode: 200,
-            productInfo
+            timesheetInfo
         }
     } catch (err: any) {
         console.error("Error invoking Bedrock:", err)

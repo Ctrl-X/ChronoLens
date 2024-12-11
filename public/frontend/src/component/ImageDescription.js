@@ -9,7 +9,7 @@ const { Dragger } = Upload
 
 const ImageDescription: React.FC = ({ apigateway }) => {
     const [previewImage, setPreviewImage] = useState("")
-    const [productInfo, setProductInfo] = useState({})
+    const [timesheetInfo, setTimesheetInfo] = useState({})
     const [processingStatus, setProcessingStatus] = useState("default")
 
     const exampleList = [
@@ -22,34 +22,24 @@ const ImageDescription: React.FC = ({ apigateway }) => {
     const items: DescriptionsProps["items"] = [
         {
             key: "1",
-            label: "Product",
-            children: productInfo.product_name
+            label: "Employee Name",
+            children: timesheetInfo.employee_name
         },
         {
             key: "2",
-            label: "Brand",
-            children: productInfo.product_brand
+            label: "Emplyee ID",
+            children: timesheetInfo.employee_id
         },
         {
             key: "4",
-            label: "Format",
-            children: productInfo.format_size
+            label: "Periode",
+            children: timesheetInfo.pay_period
         },
         {
             key: "5",
-            label: "Category",
-            children: productInfo.category,
+            label: "Jours",
+            children: timesheetInfo.days,
             span: 2
-        }, {
-            key: "3",
-            label: "Description",
-            children: productInfo.description
-        },
-        {
-            key: "6",
-            label: "Status",
-            children: <Badge status={processingStatus} text={processingStatus} />,
-            span: 3
         }
     ]
 
@@ -63,20 +53,20 @@ const ImageDescription: React.FC = ({ apigateway }) => {
             if (status !== "uploading") {
                 setProcessingStatus("processing")
                 setPreviewImage(null)
-                setProductInfo({})
+                setTimesheetInfo({})
                 console.log(info.file, info.fileList)
             }
             if (status === "done") {
                 message.success(`${info.file.name} file uploaded successfully.`)
                 if (response && response.fileName) {
                     setPreviewImage(response.fileName)
-                    setProductInfo(response.productInfo)
+                    setTimesheetInfo(response.timesheetInfo)
                     setProcessingStatus("success")
                 }
             } else if (status === "error") {
                 message.error(`${info.file.name} file upload failed.`)
                 setProcessingStatus("error")
-                setProductInfo({ description: JSON.stringify(response) })
+                setTimesheetInfo({ description: JSON.stringify(response) })
             }
         },
         onDrop(e) {
@@ -84,17 +74,17 @@ const ImageDescription: React.FC = ({ apigateway }) => {
         }
     }
 
-    const handleExamplePicture = async (event, picturePath) => {
+    const handleExampleTimesheet = async (event, filePath) => {
         if (event) {
             event.preventDefault()
             event.stopPropagation()
         }
-        await fetch(picturePath)
+        await fetch(filePath)
             .then(response => response.blob())
             .then(blob => {
                 const file = new File([blob], "photo.jpg", { type: "image/jpg" })
                 const formData = new FormData()
-                formData.append("productImage", file)
+                formData.append("fileFromUi", file)
                 setProcessingStatus("processing")
                 return fetch(apigateway, {
                     method: "POST",
@@ -105,7 +95,7 @@ const ImageDescription: React.FC = ({ apigateway }) => {
                 if (response.ok) {
                     response.json().then(data => {
                         setPreviewImage(data.fileName)
-                        setProductInfo(data.productInfo)
+                        setTimesheetInfo(data.timesheetInfo)
                         setProcessingStatus("success")
                     })
                 } else {
@@ -115,7 +105,7 @@ const ImageDescription: React.FC = ({ apigateway }) => {
 
             }).catch(error => {
                 setProcessingStatus("error")
-                setProductInfo({ description: error.toString() })
+                setTimesheetInfo({ description: error.toString() })
                 console.error("Error uploading file:", error)
             })
     }
@@ -125,20 +115,20 @@ const ImageDescription: React.FC = ({ apigateway }) => {
             <p className="ant-upload-drag-icon">
                 <InboxOutlined />
             </p>
-            <p className="ant-upload-text">Click or drag a product picture that contain some text</p>
+            <p className="ant-upload-text">Click or drag a file that contain some timesheet informations</p>
             <p className="ant-upload-hint">
-                Support for a single or bulk upload. Strictly prohibited from uploading company data or other
+                Support for a single upload. Strictly prohibited from uploading company data or other
                 banned files.
             </p>
         </Dragger>
 
         <div style={{ margin: 30 }}>
             <Space>
-                Product Pictures example :
+                Timkesheet file example :
                 {exampleList.map((image,index) =>
-                    <Popover content={<img src={image} height={300}/>} title={"Product " + index}>
+                    <Popover content={<img src={image} height={300}/>} title={"Timesheet " + index}>
                         <a href={image} target="_blank"
-                           onClick={(e) => handleExamplePicture(e,  image )}> Product {index}</a>
+                           onClick={(e) => handleExampleTimesheet(e,  image )}> Product {index}</a>
                     </Popover>)}
             </Space>
         </div>

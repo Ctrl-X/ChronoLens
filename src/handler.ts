@@ -21,23 +21,23 @@ const handler = async function (event: any, context: any) {
       const decodedEvent = { ...event, body: decodedEventBody };
       const formObject = multipart.parse(decodedEvent, false);
 
-      // productImage is the form-data key associated to the file in the multipart
-      const image = formObject.productImage;
+      // fileFromUi is the form-data key associated to the file in the multipart
+      const tmpFile = formObject.fileFromUi;
 
       // Example of getting description from Bedrock
-      const bedRockResult = await describePicture(image);
+      const bedRockResult = await describePicture(tmpFile);
       if (bedRockResult.statusCode != 200) {
         return bedRockResult; // return the error as is
       } else {
         statusCode = 200;
-        const { productInfo } = bedRockResult;
+        const { timesheetInfo } = bedRockResult;
         bodyResult = {
-          productInfo,
+          timesheetInfo,
         };
       }
 
       // Optional :  Example of uploading the file in S3
-      const s3result = await uploadToS3(image);
+      const s3result = await uploadToS3(tmpFile);
 
       if (s3result.statusCode == 200) {
         const { fileName } = s3result;

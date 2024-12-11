@@ -30,7 +30,7 @@ function App() {
             <Content className="App-Content">
                 <div className="image-uploader">
                     <ImageDescription
-                        apigateway="https://w3mckw4goc.execute-api.us-west-2.amazonaws.com/beta/" />
+                        apigateway="https://lbt12lad88.execute-api.us-west-2.amazonaws.com/beta/" />
 
                 </div>
 
