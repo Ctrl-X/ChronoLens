@@ -1,0 +1,62 @@
+.App {
+    text-align: center;
+    display: flex;
+    height: 100%;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.App-logo {
+    height: 3vmin;
+    pointer-events: none;
+}
+
+/* Font size for mobile devices */
+@media only screen and (max-width: 767px) {
+    h1 {
+        font-size: 15px !important;
+        line-height: 15px  !important;
+    }
+
+    .App-link {
+        font-size: 15px  !important;
+        line-height: 15px  !important;
+        color: #fff;
+    }
+}
+
+h1{
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    color: white;
+}
+
+.App-link {
+    font-size: 25px;
+    color: #fff;
+}
+
+.App-Content {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex: 1;
+    margin: 20px;
+}
+
+.imageSuccess{
+    flexDirection: "row"
+}
+
