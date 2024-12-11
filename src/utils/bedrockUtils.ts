@@ -37,7 +37,7 @@ async function describePicture(file: any) {
                         },
                         {
                             "type": "text",
-                            "text": "I am providing you with an file of a timesheet for employee. Based on the visual information available, please analyze the image and generate a JSON object containing the following attributes when available: \"employee_name\", \"employee_id\",  \"pay_period\" and an array of \"days\". You will find one or multiple days and time that you need to provide as a array of \"days\" containing : \"date\", \"start_time\", \"end_time\", \"lunch_time\", \"overtime\", \"total_hours\" for each work time of the employee. Ensure that the JSON object is properly formatted with correct attribute names and values enclosed in double quotes.If you don't find the information leave the attribute empty.Skip preambule and only give a valid JSON in your response. Here is the image:"
+                            "text": "I am providing you with an file of a timesheet for employee. Based on the visual information available, please analyze the image and generate a JSON object containing the following attributes when available: \"employee_name\", \"employee_id\",  \"pay_period\" and an array of \"days\" . You will find one or multiple days and time that you need to provide as a array of \"days\" containing : \"date\", \"start_time\", \"end_time\", \"lunch_time\", \"overtime\", \"total_hours\" for each work time of the employee. Ensure that the JSON object is properly formatted with correct attribute names and values enclosed in double quotes.If you don't find the information leave the attribute empty.Skip preambule and only give a valid JSON in your response. Here is the image:"
                         }
                     ]
                 }
@@ -55,6 +55,7 @@ async function describePicture(file: any) {
 
         // Parse the answer
         const textDecoder = new TextDecoder("utf-8")
+        console.log("response.body",textDecoder.decode(response.body))
         const response_body = JSON.parse(textDecoder.decode(response.body))
 
         // TODO : INVOKE Amazon Bedrock Guardrails to verify the output response_body
