@@ -1,7 +1,7 @@
 {
-  "name": "lambda-image-description",
+  "name": "chrono-lens",
   "version": "1.0.0",
-  "description": "A simple Lambda function to describe the text on a product picture",
+  "description": "A simple Lambda function to extract content from files",
   "main": "handler.js",
   "scripts": {
     "build": "tsc",

@@ -16,9 +16,9 @@ function App() {
                 <img src={logo} className="App-logo" alt="logo" />
 
                 <h1>
-                    Generate Product Description
+                    Extract timesheet from file informations
                     <br />
-                    <small>using Claude 3 Sonnet on Bedrock</small>
+                    <small>using Claude 3.5 Sonnet on Bedrock</small>
 
                 </h1>
 

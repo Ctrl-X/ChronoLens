@@ -1,5 +1,5 @@
 {
-  "name": "product-image-description",
+  "name": "chrono-lens",
   "version": "0.1.0",
   "bin": {
     "lambda": "bin/lambda.js"

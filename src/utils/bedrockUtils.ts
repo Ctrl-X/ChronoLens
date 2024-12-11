@@ -13,6 +13,7 @@ async function describePicture(image: any) {
     // modelId: "anthropic.claude-3-haiku-20240307-v1:0",
     // modelId: "anthropic.claude-3-sonnet-20240229-v1:0",
     // modelId: "anthropic.claude-3-5-sonnet-20240620-v1:00",
+    // modelId: "anthropic.claude-3-5-sonnet-20241022-v2:0",
     // prepare Claude 3 prompt
     const params = {
         modelId: process.env.MODEL_ID,
@@ -36,7 +37,7 @@ async function describePicture(image: any) {
                         },
                         {
                             "type": "text",
-                            "text": "Claude 3 Sonnet, I am providing you with an image of a product. Based on the visual information available, please analyze the image and generate a JSON object containing the following attributes: \"product_name\", \"product_brand\", \"description\", \"format_size\", and \"category\". The \"description\" should be a concise phrase of no more than 20 words that captures the essence of the product. The \"format_size\" should specify the quantity in units such as grams, milliliters, or kilograms. The \"category\" should be a general classification of the product such as food, furniture, well-being, outfit, beverage,fresh food,etc. Ensure that the JSON object is properly formatted with correct attribute names and values enclosed in double quotes.If you don't find the information leave the attribute empty.Skip preambule and only give a valid JSON in your response.Only take english words from the picture. Here is the image:"
+                            "text": "I am providing you with an image of a timesheet for employee. Based on the visual information available, please analyze the image and generate a JSON object containing the following attributes when available: \"employee_name\", \"employee_id\", \"date_range\", \"pay_period\", \"start_time\", \"end_time\", \"lunch_time\", \"overtime\", \"total_hours\". If you find multiple days and time, provide an array containing all informations about the work time of the employee. Ensure that the JSON object is properly formatted with correct attribute names and values enclosed in double quotes.If you don't find the information leave the attribute empty.Skip preambule and only give a valid JSON in your response. Here is the image:"
                         }
                     ]
                 }
