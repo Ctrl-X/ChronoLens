@@ -48,6 +48,8 @@ lib/*.d.ts
 lib/*.js
 /src/*.d.ts
 /src/*.js
+/src/utils/*.d.ts
+/src/utils/*.js
 
 
 # Snowpack dependency directory (https://snowpack.dev/)
