@@ -55,7 +55,7 @@ async function describePicture(file: any) {
 
         // Parse the answer
         const textDecoder = new TextDecoder("utf-8")
-        console.log("response.body",textDecoder.decode(response.body))
+        console.log("response.body : ",textDecoder.decode(response.body))
         const response_body = JSON.parse(textDecoder.decode(response.body))
 
         // TODO : INVOKE Amazon Bedrock Guardrails to verify the output response_body

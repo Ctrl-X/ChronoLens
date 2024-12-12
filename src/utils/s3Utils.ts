@@ -11,7 +11,7 @@ async function uploadToS3(image: any) {
         return {
             statusCode: 400,
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: "Missing 'productImage' file in form-data" }),
+            body: JSON.stringify({ message: "Missing 'fileFromUi' file in form-data" }),
         }
     }
     const fileName = randomFileName(image)

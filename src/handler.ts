@@ -12,7 +12,7 @@ const handler = async function (event: any, context: any) {
     console.log("method", method);
     if (method != "POST" || event.path !== "/") {
       // We only accept POST
-      bodyResult = "We only accept POST /";
+      bodyResult = "We only accept POST";
     } else {
       // parse the base64 from the API Gateway
       const base64Body = event.body;

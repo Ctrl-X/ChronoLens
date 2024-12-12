@@ -45,7 +45,7 @@ const ImageDescription: React.FC = ({ apigateway }) => {
 
 
     const props: UploadProps = {
-        name: "productImage",
+        name: "fileFromUi",
         multiple: true,
         action: apigateway,
         onChange(info, fileList, event) {

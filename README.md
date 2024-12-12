@@ -31,7 +31,7 @@ After you deployed your Cloud formation with CDK, you can make query using your 
 Here is an example using the command line :
 ```
 curl -X POST \
-     -F "productImage=@/path/to/picture.jpg" \
+     -F "fileFromUi=@/path/to/file.jpg" \
      https://your-apigateway-endpoint-from-step-5
 ```
 
