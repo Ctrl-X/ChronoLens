@@ -1,7 +1,7 @@
 const multipart = require("aws-lambda-multipart-parser");
 
 import uploadToS3 from "./utils/s3Utils";
-import describePicture from "./utils/bedrockUtils";
+import { getEmployeeTimesheet, getEmployeeList } from "./utils/bedrockUtils";
 
 const handler = async function (event: any, context: any) {
   let statusCode = 400;
@@ -24,24 +24,41 @@ const handler = async function (event: any, context: any) {
       // fileFromUi is the form-data key associated to the file in the multipart
       const tmpFile = formObject.fileFromUi;
 
-      // Example of getting description from Bedrock
-      const bedRockResult = await describePicture(tmpFile);
-      if (bedRockResult.statusCode != 200) {
-        return bedRockResult; // return the error as is
-      } else {
-        statusCode = 200;
-        const { timesheetInfo } = bedRockResult;
+      // Get employee info from POST parameters
+      const employeeName = formObject.employee_name;
+      const employeeId = formObject.employee_id;
+
+      if (!employeeName || !employeeId) {
+        // if no specific employee is provided,we get the list of all employees
+        const result = await getEmployeeList(tmpFile);
+        statusCode = result.statusCode;
+        if (result.statusCode !== 200) {
+          return result;
+        }
         bodyResult = {
-          timesheetInfo,
+          employeeList: result.employeeInfo,
         };
-      }
+        // Optional :  Example of uploading the file in S3
+        const s3result = await uploadToS3(tmpFile);
+        if (s3result.statusCode == 200) {
+          const { fileName } = s3result;
+          bodyResult = { ...bodyResult, fileName };
+        }
+      } else {
+        // Get timesheets for the specified employee
+        const bedRockResult = await getEmployeeTimesheet(
+          tmpFile,
+          employeeName,
+          employeeId,
+        );
 
-      // Optional :  Example of uploading the file in S3
-      const s3result = await uploadToS3(tmpFile);
-
-      if (s3result.statusCode == 200) {
-        const { fileName } = s3result;
-        bodyResult = { ...bodyResult, fileName };
+        if (bedRockResult.statusCode === 200) {
+          bodyResult = {
+            timesheetInfo: bedRockResult.timesheetInfo,
+          };
+        } else {
+          return bedRockResult;
+        }
       }
     }
   } catch (error) {

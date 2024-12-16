@@ -94,6 +94,7 @@ const ImageDescription: React.FC = ({ apigateway }) => {
             .then(response => {
                 if (response.ok) {
                     response.json().then(data => {
+                        console.log("data",data)
                         setPreviewImage(data.fileName)
                         setTimesheetInfo(data.timesheetInfo)
                         setProcessingStatus("success")

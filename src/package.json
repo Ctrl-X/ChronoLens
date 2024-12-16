@@ -16,7 +16,7 @@
     "typescript": "~5.4.2"
   },
   "dependencies": {
-    "@aws-sdk/client-bedrock-runtime": "^3.561.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.712.0",
     "@aws-sdk/client-s3": "^3.525.0",
     "@aws-sdk/s3-request-presigner": "^3.567.0",
     "aws-lambda-multipart-parser": "^0.1.3"
