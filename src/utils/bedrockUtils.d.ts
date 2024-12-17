@@ -1,6 +1,8 @@
+/// <reference types="node" />
+/// <reference types="node" />
 declare function getEmployeeList(file: any): Promise<{
     statusCode: number;
-    employeeInfo: string | undefined;
+    employeeInfo: string;
     headers?: undefined;
     body?: undefined;
 } | {
@@ -11,9 +13,9 @@ declare function getEmployeeList(file: any): Promise<{
     body: string;
     employeeInfo?: undefined;
 }>;
-declare function getEmployeeTimesheet(file: any, employee_name: string, employee_id: string): Promise<{
+declare function getEmployeeTimesheet(filename: string, buffer: Buffer, employee_name: string, employee_id: string): Promise<{
     statusCode: number;
-    timesheetInfo: import("@aws-sdk/client-bedrock-runtime").Message | undefined;
+    timesheetInfo: string;
     headers?: undefined;
     body?: undefined;
 } | {

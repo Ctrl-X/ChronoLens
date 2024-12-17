@@ -1,6 +1,6 @@
 import logo from "./logo.svg"
 import "./App.css"
-import ImageDescription from "./component/ImageDescription"
+import TimesheetDescription from "./component/TimesheetDescription"
 import type { MenuProps } from "antd"
 import { Alert, Layout, Menu, Space, theme } from "antd"
 import {
@@ -18,7 +18,7 @@ function App() {
                 <h1>
                     Extract timesheet from file informations
                     <br />
-                    <small>using Claude 3.5 Sonnet on Bedrock</small>
+                    <small>using Nova Pro on Bedrock</small>
 
                 </h1>
 
@@ -29,14 +29,12 @@ function App() {
 
             <Content className="App-Content">
                 <div className="image-uploader">
-                    <ImageDescription
+                    <TimesheetDescription
                         apigateway="https://lbt12lad88.execute-api.us-west-2.amazonaws.com/beta/" />
 
                 </div>
 
             </Content>
-
-            <Footer></Footer>
         </Layout>
 
     )

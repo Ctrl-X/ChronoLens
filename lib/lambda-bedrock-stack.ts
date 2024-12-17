@@ -71,8 +71,8 @@ export class CDKExampleLambdaApiStack extends Stack {
       timeout: Duration.seconds(300),
       environment: {
         BUCKET: this.bucket.bucketName,
-        MODEL_ID: "us.amazon.nova-pro-v1:0",
-        //MODEL_ID: "anthropic.claude-3-5-sonnet-20241022-v2:0",
+        // MODEL_ID: "us.amazon.nova-pro-v1:0",
+        MODEL_ID: "anthropic.claude-3-5-sonnet-20241022-v2:0",
         // MODEL_ID: "anthropic.claude-3-haiku-20240307-v1:0",
         //MODEL_ID: "anthropic.claude-3-5-sonnet-20240620-v1:0",
       },

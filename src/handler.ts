@@ -1,6 +1,6 @@
 const multipart = require("aws-lambda-multipart-parser");
 
-import uploadToS3 from "./utils/s3Utils";
+import { uploadToS3, loadFromS3 } from "./utils/s3Utils";
 import { getEmployeeTimesheet, getEmployeeList } from "./utils/bedrockUtils";
 
 const handler = async function (event: any, context: any) {
@@ -21,36 +21,42 @@ const handler = async function (event: any, context: any) {
       const decodedEvent = { ...event, body: decodedEventBody };
       const formObject = multipart.parse(decodedEvent, false);
 
-      // fileFromUi is the form-data key associated to the file in the multipart
-      const tmpFile = formObject.fileFromUi;
-
       // Get employee info from POST parameters
       const employeeName = formObject.employee_name;
       const employeeId = formObject.employee_id;
 
       if (!employeeName || !employeeId) {
-        // if no specific employee is provided,we get the list of all employees
+        // if no specific employee is provided, we need to extract them from the file
+        // fileFromUi is the form-data key associated to the file in the multipart
+        const tmpFile = formObject.fileFromUi;
+        // Uploading the file in S3
+        const s3result = await uploadToS3(tmpFile);
+        const { fileName } = s3result;
+        if (s3result.statusCode !== 200) {
+          return s3result; // failed to upload to s3
+        }
+
+        // we get the list of all employees from the uploaded picture
         const result = await getEmployeeList(tmpFile);
         statusCode = result.statusCode;
         if (result.statusCode !== 200) {
-          return result;
+          return result; // failed to call bedrock
         }
         bodyResult = {
           employeeList: result.employeeInfo,
+          fileName,
         };
-        // Optional :  Example of uploading the file in S3
-        const s3result = await uploadToS3(tmpFile);
-        if (s3result.statusCode == 200) {
-          const { fileName } = s3result;
-          bodyResult = { ...bodyResult, fileName };
-        }
       } else {
         // Get timesheets for the specified employee
+        const s3Filename = formObject.s3Filename;
+        const fileBuffer = await loadFromS3(s3Filename);
         const bedRockResult = await getEmployeeTimesheet(
-          tmpFile,
+          s3Filename,
+          fileBuffer,
           employeeName,
           employeeId,
         );
+        statusCode = bedRockResult.statusCode;
 
         if (bedRockResult.statusCode === 200) {
           bodyResult = {

@@ -1,6 +1,18 @@
 declare const handler: (event: any, context: any) => Promise<{
     statusCode: number;
-    employeeInfo: string | undefined;
+    headers: {
+        "Content-Type": string;
+    };
+    body: string;
+    fileName?: undefined;
+} | {
+    statusCode: number;
+    fileName: string;
+    headers?: undefined;
+    body?: undefined;
+} | {
+    statusCode: number;
+    employeeInfo: string;
     headers?: undefined;
     body?: undefined;
 } | {
@@ -12,7 +24,7 @@ declare const handler: (event: any, context: any) => Promise<{
     employeeInfo?: undefined;
 } | {
     statusCode: number;
-    timesheetInfo: import("@aws-sdk/client-bedrock-runtime").Message | undefined;
+    timesheetInfo: string;
     headers?: undefined;
     body?: undefined;
 } | {
