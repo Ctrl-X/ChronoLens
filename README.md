@@ -3,9 +3,7 @@ using generative AI to parse timesheet paper work
 
 # Description
 This project demonstrate how to use a lambda function to extract information from a timesheet using generative AI.
-To achieve that, we use Claude v3.5 Sonnet inside Bedrock to provide vision capability.
-
-![Product information automatically generated](public/frontend/public/sitepreview.png)
+To achieve that, we use Nova Pro inside Bedrock to provide vision capability and file analysis (Excel, Pdf,etc).
 
 
 # What's inside?
@@ -15,7 +13,7 @@ This is code sample that uses the AWS Cloud Development Kit (CDK) to:
 * Create a node.js Lambda function that can be invoked using API Gateway
 * Create an S3 bucket to save the picture
 
-![AWS Architecture diagram](Bedrock-Image-description.png)
+![AWS Architecture diagram](Bedrock-description.png)
 
 
 
