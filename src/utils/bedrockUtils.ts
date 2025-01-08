@@ -159,10 +159,6 @@ async function getEmployeeTimesheet(filename: string, buffer: Buffer, employee_n
         const isImage = ['png', 'jpeg', 'jpg', 'gif', 'webp'].includes(fileFormat);
         const modelId = isImage ? process.env.MODEL_ID : 'us.amazon.nova-pro-v1:0'
 
-        // Determine model based on file type
-        console.log("file.filename", filename)
-        console.log("fileFormat", fileFormat)
-        console.log("selected model", modelId)
 
         const member = isImage ? {
             image: {
