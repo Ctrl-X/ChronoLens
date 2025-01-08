@@ -51,7 +51,6 @@ lib/*.js
 /src/utils/*.d.ts
 /src/utils/*.js
 
-package-lock.json
 
 
 # Snowpack dependency directory (https://snowpack.dev/)
